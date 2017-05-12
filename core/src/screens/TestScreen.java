@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.List;
 
+import controller.MyInputAdapter;
 import model.Food;
 import model.GameWorld;
 import model.Snake;
@@ -21,7 +22,7 @@ import model.Snake;
 public class TestScreen implements Screen {
 
     private static final float WORLD_SIZE = 400;
-    private static final float SNAKE_SPEED = 20f;
+    private static final float SNAKE_SPEED = 50f;
     private static final float SNAKE_WIDTH = 20f;
 
     private ShapeRenderer shapeRenderer;
@@ -37,6 +38,7 @@ public class TestScreen implements Screen {
         world = new GameWorld(new Vector2(WORLD_SIZE, WORLD_SIZE), new Vector2(0, 0));
         snake = new Snake(world, SNAKE_SPEED, SNAKE_WIDTH);
         viewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
+        Gdx.input.setInputProcessor(new MyInputAdapter(snake));
     }
 
     @Override

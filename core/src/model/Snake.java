@@ -41,7 +41,7 @@ public class Snake implements MyDrawable {
         this.world = world;
         this.directions = new LinkedList<MyDirection>();
         this.turnPoints = new LinkedList<Vector2>();
-        this.velocity = new Vector2(snakeSpeed, 0);
+        this.velocity = new Vector2(1, 0);
         this.currentDirection = RIGHT;
         setHeadTailPosition();
     }
@@ -77,24 +77,28 @@ public class Snake implements MyDrawable {
                 if(currentDirection != MyDirection.DOWN){
                     velocity.x = 0;
                     velocity.y = 1;
+                    currentDirection = MyDirection.UP;
                 }
                 break;
             case DOWN:
                 if(currentDirection != MyDirection.UP){
                     velocity.x = 0;
                     velocity.y = -1;
+                    currentDirection = MyDirection.DOWN;
                 }
                 break;
             case RIGHT:
                 if(currentDirection != MyDirection.LEFT){
                     velocity.x = 1;
                     velocity.y = 0;
+                    currentDirection = MyDirection.RIGHT;
                 }
                 break;
             case LEFT:
                 if(currentDirection != MyDirection.RIGHT){
                     velocity.x = -1;
                     velocity.y = 0;
+                    currentDirection = MyDirection.LEFT;
                 }
                 break;
         }
