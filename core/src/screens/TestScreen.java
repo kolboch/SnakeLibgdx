@@ -10,19 +10,22 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.List;
 
-import controller.MyInputAdapter;
+import controller.BaseGameController;
+import controller.FoodController;
+import controller.SnakeController;
 import model.Food;
 import model.GameWorld;
+import model.Resetable;
 import model.Snake;
 
 /**
  * Created by Karlo on 2017-05-11.
  */
 
-public class TestScreen implements Screen {
+public class TestScreen implements Screen, Resetable{
 
     private static final float WORLD_SIZE = 400;
-    private static final float SNAKE_SPEED = 50f;
+    private static final float SNAKE_SPEED = 100f;
     private static final float SNAKE_WIDTH = 20f;
 
     private ShapeRenderer shapeRenderer;
@@ -32,13 +35,18 @@ public class TestScreen implements Screen {
     private List<Food> food;
     private GameWorld world;
 
+    private SnakeController snakeController;
+    private FoodController foodController;
+
     @Override
     public void show() {
         shapeRenderer = new ShapeRenderer();
         world = new GameWorld(new Vector2(WORLD_SIZE, WORLD_SIZE), new Vector2(0, 0));
         snake = new Snake(world, SNAKE_SPEED, SNAKE_WIDTH);
         viewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
-        Gdx.input.setInputProcessor(new MyInputAdapter(snake));
+        snakeController = new SnakeController(snake);
+        foodController = new FoodController(food);
+        Gdx.input.setInputProcessor(new BaseGameController(snakeController, foodController));
     }
 
     @Override
@@ -80,5 +88,10 @@ public class TestScreen implements Screen {
     @Override
     public void dispose() {
         shapeRenderer.dispose();
+    }
+
+    @Override
+    public void reset() {
+
     }
 }
